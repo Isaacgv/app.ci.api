@@ -37,9 +37,15 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: isaacgv/app-ci-api:${{ steps.generate_tag.outputs.sha }},isaacgv/app-ci-api:latest
   
-    - name: Build
-      run: docker build -t isaacgv/app-ci-api:${{ steps.generate_tag.outputs.sha }} . 
+    #- name: Build
+    #  run: docker build -t isaacgv/app-ci-api:${{ steps.generate_tag.outputs.sha }} . 
   
-    - name: Push image
-      run: docker push isaacgv/app-ci-api:${{ steps.generate_tag.outputs.sha }} 
+    #- name: Push image
+    #  run: docker push isaacgv/app-ci-api:${{ steps.generate_tag.outputs.sha }} 
